@@ -1,0 +1,87 @@
+1 after creating folder 
+    command: uv init .
+
+2. our .toml file after that copy and paste in readme
+
+this has three aprt  meta data part
+"""
+
+[project]
+name = "fastapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+[project]
+name = "fastapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+"""
+3. create 'main.py' (in section where toml is present) location 'C:\Users\xeesh\OneDrive\Desktop\Afnan\AI\fastapi_explore\main.py'
+
+4. in tomml we have only python, we need fast api framework, and uvcorn[standard] 
+    it makes our local pc to server to run fastapi, else fastapi is only coding interface
+5. add fastapi and uvicorn[standard]  it will be automaticaly add into dependencies in toml, also it will
+    install required subpackages in backend too
+    command: uv add fastapi "uvicorn[standard]"
+    command: uv add pytest
+    this will bring dependecnis and also add them into toml and also proivde uv.lock 
+    see dependecies auto added after we ran command
+    [project]
+    name = "fastapi_explore"
+    version = "0.1.0"
+    description = "Add your description here"
+    readme = "README.md"
+    requires-python = ">=3.13"
+    dependencies = [
+    "fastapi>=0.115.11",
+    "pytest>=8.3.5",
+    "uvicorn[standard]>=0.34.0",
+]
+
+6.  from fastapi import FastAPI
+
+ 
+# craeting object of FastAPI class
+# this object responsile for everything done from fastapi
+# this will be our server , adn right now
+app  = FastAPI()
+
+# our decorator function
+# decorator "@" is extra 
+
+@app.get("/")# againt api adres  
+def index():
+    return {"Hello": "World"}
+
+#anyone who route
+@app.get("/piaic/")
+def piaic():
+    return {"organization":"piaic"}
+
+7. afte we did some app ocject work this is how to run server
+--reload mean for any chnages in server we dont need to stop it
+
+ command: uvicorn main:app --reload
+INFO:     Started server process [10728]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+
+8. to get specific server service 
+        http://127.0.0.1:8000/piaic
+
+9. to check doc .run . and we can check repsonse to this below request from 
+            we can check all of our routes
+  run this from chrome        127.0.0.1:8000/docs 
+
+10. any api or proejct we work on, we create test for it
+    for each function such as 1000 function we write test code for it
+    and as soon as we run test_somename.py it will test execute auto 1000 func
+    make sure testing funtion has test in its name so we we run pytest it will auot figure it out
+    creat test file.
