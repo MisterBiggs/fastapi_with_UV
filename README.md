@@ -42,12 +42,13 @@ This document provides a comprehensive guide to setting up a FastAPI project usi
 * **Commands:**
     ```bash
     uv add fastapi "uvicorn[standard]"
-    uv add pytest
+    uv add --dev pytest httpx
     ```
 * **Effects:**
     * Installs the specified packages and their respective sub-dependencies.
     * Automatically updates the `pyproject.toml` file to reflect these dependencies.
     * Generates a `uv.lock` file, which locks down the exact versions of the installed packages, ensuring consistent builds.
+    * Adds testing as development dependencies
 
 ## 5. Updated `pyproject.toml` with Dependencies
 
@@ -60,9 +61,14 @@ This document provides a comprehensive guide to setting up a FastAPI project usi
     readme = "README.md"
     requires-python = ">=3.13"
     dependencies = [
-        "fastapi>=0.115.11",
+        "fastapi>=0.115.12",
+        "uvicorn[standard]>=0.34.2",
+    ]
+
+    [dependency-groups]
+    dev = [
+        "httpx>=0.28.1",
         "pytest>=8.3.5",
-        "uvicorn[standard]>=0.34.0",
     ]
     ```
 * **Explanation:** The `dependencies` section now lists the required packages, including FastAPI, pytest, and Uvicorn, along with their minimum version requirements.
@@ -90,7 +96,7 @@ This document provides a comprehensive guide to setting up a FastAPI project usi
 
 ## 7. Running the FastAPI Server
 
-* **Command:** `uvicorn main:app --reload`
+* **Command:** `uv run uvicorn main:app --reload`
 * **Explanation:**
     * Starts the Uvicorn server, which runs the FastAPI application.
     * `main:app` specifies the `main.py` file and the `app` object within it.
@@ -121,5 +127,5 @@ This document provides a comprehensive guide to setting up a FastAPI project usi
 * **Test File:** Create a file named `test_main.py` in the project directory.
 * **Test Functions:** Each test function should begin with `test_` so that pytest can automatically discover them.
 * **Execution:**
-    * **Command:** `pytest` (Run from the project directory).
+    * **Command:** `uv run pytest` (Run from the project directory).
     * **Result:** pytest automatically discovers and executes test files, providing feedback on test success or failure. This allows for automated testing of all functions within the project.
